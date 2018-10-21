@@ -14,7 +14,7 @@
             <Pivot.Title>
                 <TextBlock Text="Danh sách bài hát" FontSize="20"></TextBlock>
             </Pivot.Title>
-            <PivotItem Header="Bài hát">
+            <PivotItem Header="Nhạc online">
                 <Grid Margin="0,0,0,45">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="139*"/>
@@ -23,54 +23,95 @@
                     <ListView ItemsSource="{x:Bind ListSong ,Mode=TwoWay}" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" x:Name="MyListSong">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="entity:Song">
+                                <!--Song choosed with tapped-->
                                 <StackPanel Margin="0,10,0,10" Orientation="Horizontal" Tag="{Binding}" Tapped="currentSongs" x:Name="_isPlaying">
-                                    <PersonPicture
-                                    DisplayName="Betsy Sherman"
-                                    ProfilePicture="{x:Bind thumbnail}"/>
-                                    <TextBlock Text="{x:Bind name}"></TextBlock>
+                                    <Border CornerRadius="10" Width="75" Height="75" >
+                                        <Border.Background>
+                                            <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind thumbnail}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <StackPanel Margin="20,10,0,0" Orientation="Vertical">
+                                        <TextBlock FontWeight="Bold" FontSize="16" Text="{x:Bind name}"></TextBlock>
+                                        <TextBlock Text="{x:Bind singer}" Style="{ThemeResource CaptionTextBlockStyle}"></TextBlock>
+                                    </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
 
                     </ListView>
-
                 </Grid>
 
             </PivotItem>
             <PivotItem Header="Thêm bài hát" >
-                <StackPanel>
-                    <TextBlock></TextBlock>
-                    <TextBox Header="Song name" x:Name="txt_name"></TextBox>
-                    <TextBlock x:Name="name" Foreground="Red"></TextBlock>
-                    <TextBox Header="Thumbnail" x:Name="txt_thumbnail"></TextBox>
-                    <TextBlock x:Name="thumbnail" Foreground="Red"></TextBlock>
-                    <TextBox Header="Description" AcceptsReturn="True" Height="100" x:Name="txt_description"></TextBox>
-                    <TextBlock x:Name="description" Foreground="Red"></TextBlock>
-                    <TextBox Header="Singer" x:Name="txt_singer"></TextBox>
-                    <TextBlock x:Name="singer" Foreground="Red"></TextBlock>
-                    <TextBox Header="Author" x:Name="txt_author"></TextBox>
-                    <TextBlock x:Name="author" Foreground="Red"></TextBlock>
-                    <TextBox Header="Link" x:Name="txt_link"></TextBox>
-                    <TextBlock x:Name="link" Foreground="Red"></TextBlock>
-                    <Button Content="Save" HorizontalAlignment="Stretch" Click="btn_add"></Button>
-                </StackPanel>
+                <ScrollViewer>
+                    <StackPanel Margin="0,0,0,45">
+                        <TextBlock></TextBlock>
+                        <TextBox Header="Song name" x:Name="txt_name"></TextBox>
+                        <TextBlock x:Name="name" Foreground="Red"></TextBlock>
+                        <TextBox Header="Thumbnail" x:Name="txt_thumbnail"></TextBox>
+                        <TextBlock x:Name="thumbnail" Foreground="Red"></TextBlock>
+                        <TextBox Header="Description" AcceptsReturn="True" Height="100" x:Name="txt_description"></TextBox>
+                        <TextBlock x:Name="description" Foreground="Red"></TextBlock>
+                        <TextBox Header="Singer" x:Name="txt_singer"></TextBox>
+                        <TextBlock x:Name="singer" Foreground="Red"></TextBlock>
+                        <TextBox Header="Author" x:Name="txt_author"></TextBox>
+                        <TextBlock x:Name="author" Foreground="Red"></TextBlock>
+                        <TextBox Header="Link" x:Name="txt_link"></TextBox>
+                        <TextBlock x:Name="link" Foreground="Red"></TextBlock>
+                        <Button Content="Save"  HorizontalAlignment="Stretch" Click="btn_add"></Button>
+                    </StackPanel>
+                </ScrollViewer>
+                
+            </PivotItem>
+            <PivotItem Header="Nhạc của tui" >
+                <Grid Margin="0,0,0,45">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="139*"/>
+                        <ColumnDefinition Width="269*"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView ItemsSource="{x:Bind listSongLocal ,Mode=TwoWay}" Grid.ColumnSpan="2" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" x:Name="ListSongInLibary">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="entity:SongLocal">
+                                <!--Song choosed with tapped-->
+                                <StackPanel Margin="0,10,0,10" Orientation="Horizontal" Tag="{Binding}" Tapped="Choosed_song" x:Name="_isPlaying">
+                                    <Border CornerRadius="10" Width="75" Height="75" >
+                                        <Border.Background>
+                                            <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind Thumbnai}"/>
+                                        </Border.Background>
+                                    </Border>
+                                    <StackPanel Margin="20,10,0,0" Orientation="Vertical">
+                                        <TextBlock FontWeight="Bold" FontSize="16" Text="{x:Bind Name}"></TextBlock>
+                                        <TextBlock Text="{x:Bind Singer}" Style="{ThemeResource CaptionTextBlockStyle}"></TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                </Grid>
             </PivotItem>
         </Pivot>
-        <CommandBar HorizontalAlignment="Stretch"  VerticalAlignment="Bottom" >
-            
+        <CommandBar x:Name="CommandBar_control" HorizontalAlignment="Stretch" Visibility="Collapsed"  VerticalAlignment="Bottom" >
+
             <AppBarSeparator/>
             <AppBarButton Icon="Previous" Label="Previous" Click="btn_Previous" />
             <AppBarButton  Icon="Play" Label="Stop" Click="Player_Click" ToolTipService.ToolTip="Play/Pause Song" x:Name="PlayButton"/>
             <AppBarButton Icon="Next" Label="Next" Click="btn_Next"/>
             <CommandBar.Content>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock x:Name="status_song" Margin="12,0,0,14"/>
-                    <TextBlock x:Name="name_song" Margin="12,14"/>
+                    <Image x:Name="song_image" Width="20" Height="20"></Image>
+                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" x:Name="status_song" Margin="12,14"/>
+                    <TextBlock Style="{ThemeResource CaptionTextBlockStyle}" x:Name="name_song" Margin="12,14"/>
 
                 </StackPanel>
-                
+
             </CommandBar.Content>
         </CommandBar>
         <MediaElement x:Name="mediaElement"></MediaElement>
+        <!--<MediaElement x:Name="mediaElement" AreTransportControlsEnabled="True">
+            <MediaElement.TransportControls>
+                <MediaTransportControls IsPreviousTrackButtonVisible="True" IsNextTrackButtonVisible="True"></MediaTransportControls>
+            </MediaElement.TransportControls>
+        </MediaElement>-->
     </Grid>
 </Page>

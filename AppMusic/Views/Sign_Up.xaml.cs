@@ -139,6 +139,7 @@ namespace AppMusic.Views
             {
                 var rootFrame = Window.Current.Content as Frame;
                 rootFrame.Navigate(typeof(Views.Sign_In));
+                Debug.WriteLine("success");
             }
             else
             {
@@ -184,31 +185,6 @@ namespace AppMusic.Views
             var rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(Views.Sign_In));
 
-        }
-
-        private void Home(object sender, RoutedEventArgs e)
-        {
-            var rootFrame = Window.Current.Content as Frame;
-            rootFrame.Navigate(typeof(MainPage));
-        }
-
-        private async void test(object sender, RoutedEventArgs e)
-        {
-            string content = "Hello world";
-            string file_name = "test.txt";
-            StorageFolder folder = ApplicationData.Current.LocalFolder;
-            StorageFile file = await folder.CreateFileAsync(file_name,CreationCollisionOption.OpenIfExists);
-            await FileIO.WriteTextAsync(file, content);
-            
-        }
-
-        private async void read(object sender, RoutedEventArgs e)
-        {
-            string file_name = "test.txt";
-            StorageFolder folder = ApplicationData.Current.LocalFolder;
-            StorageFile file = await folder.GetFileAsync(file_name);
-            string test= await FileIO.ReadTextAsync(file);
-            this.file_content.Text = test;
         }
     }
 

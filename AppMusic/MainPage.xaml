@@ -15,7 +15,7 @@
         <SplitView Name="My_SplitView" IsPaneOpen="False" DisplayMode="CompactOverlay">
             <SplitView.Pane>
                 <StackPanel x:Name="StackIcon" Margin="5, 50, 0, 0">
-                    <RadioButton Tag="Home" Style="{ThemeResource TextBlockButtonStyle}" Margin="0, 30, 0, 30" Click="RadioButton_Click">
+                    <RadioButton Tag="Home" Style="{ThemeResource TextBlockButtonStyle}" Margin="0, 30, 0, 30" Click="RadioButton_Click" IsChecked="True">
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Home" Margin="0, 0, 15, 0"/>
                             <TextBlock Text="Home" Margin="0, 3, 0, 0"/>
@@ -41,23 +41,22 @@
                         </StackPanel>
 
                     </RadioButton>
-                    <RadioButton Style="{ThemeResource TextBlockButtonStyle}" Margin="0, 0, 0, 30">
-                        <StackPanel Orientation="Horizontal">
-                            <SymbolIcon Symbol="Caption" Margin="0, 0, 15, 0"/>
-                            <TextBlock Text="Another Page" Margin="0, 3, 0, 0"/>
-                        </StackPanel>
-                    </RadioButton>
-                    <RadioButton Tag="Login" Style="{ThemeResource TextBlockButtonStyle}" Margin="0, 0, 0, 10" Click="RadioButton_Click">
+                    <RadioButton Tag="Login" Style="{ThemeResource TextBlockButtonStyle}" Margin="0, 0, 0, 30" Click="RadioButton_Click">
                         <StackPanel Orientation="Horizontal">
                             <SymbolIcon Symbol="Contact2" Margin="0, 0, 15, 0"/>
                             <TextBlock Text="Login" Margin="0, 3, 0, 0"/>
+                        </StackPanel>
+                    </RadioButton>
+                    <RadioButton Tag="Logout" Style="{ThemeResource TextBlockButtonStyle}" Margin="0, 0, 0, 30" Click="RadioButton_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <SymbolIcon Symbol="Import" Margin="0, 0, 15, 0"/>
+                            <TextBlock Text="Logout" Margin="0, 3, 0, 0"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>
             </SplitView.Pane>
             <SplitView.Content>
                 <Frame x:Name="My_Frame"></Frame>
-                
             </SplitView.Content>
         </SplitView>
         <Button VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="btn_bar" Width="48" Height="48" Click="btn_bar_Click">
@@ -68,7 +67,11 @@
             </StackPanel>
         </Button>
 
-
+        <!--<MediaPlayerElement AreTransportControlsEnabled="True">
+            <MediaPlayerElement.TransportControls>
+                <MediaTransportControls />
+            </MediaPlayerElement.TransportControls>
+        </MediaPlayerElement>-->
 
     </Grid>
 </Page>

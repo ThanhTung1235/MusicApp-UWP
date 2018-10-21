@@ -9,10 +9,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <PersonPicture
+            DisplayName="Betsy Sherman"
+             x:Name="txt_avatar"/>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Name"></TextBlock>
-                <TextBlock x:Name="txt_name" Margin="20,0,0,0"></TextBlock>
+                <TextBlock Text="firstName"></TextBlock>
+                <TextBlock x:Name="txt_firstName" Margin="20,0,0,0"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="lastName"></TextBlock>
+                <TextBlock x:Name="txt_lastName" Margin="20,0,0,0"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Email"></TextBlock>

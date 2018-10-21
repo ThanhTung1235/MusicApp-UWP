@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -14,6 +15,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using AppMusic.Entity;
 using AppMusic.Services;
@@ -28,9 +30,11 @@ namespace AppMusic.Views
     /// </summary>
     public sealed partial class Sign_In : Page
     {
+        private static Member currentLogin;
         public Sign_In()
         {
             this.InitializeComponent();
+            ((Storyboard)Resources["GradientAnimation"]).Begin();
         }
 
         private async void Button_submit(object sender, RoutedEventArgs e)
@@ -45,12 +49,15 @@ namespace AppMusic.Views
             var responseContent = await response.Content.ReadAsStringAsync();
             if (response.StatusCode == System.Net.HttpStatusCode.Created)
             {
+                
                 Debug.WriteLine("Login Success");
                 Debug.WriteLine(responseContent);
                 TokenResponse tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseContent); //read token
                 StorageFolder folder = ApplicationData.Current.LocalFolder;// save token file
                 StorageFile storageFile = await folder.CreateFileAsync("token.txt", CreationCollisionOption.ReplaceExisting);
                 await FileIO.WriteTextAsync(storageFile, responseContent);
+                var rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(MainPage));
 
             }
             else
@@ -72,16 +79,59 @@ namespace AppMusic.Views
             }
         }
 
+        public static async void DoLogin()
+        {
+            // Auto login nếu tồn tại file token 
+            currentLogin = new Member();
+            StorageFolder folder = ApplicationData.Current.LocalFolder;
+            if (await folder.TryGetItemAsync("token.txt") != null)
+            {
+                StorageFile file = await folder.GetFileAsync("token.txt");
+                var tokenContent = await FileIO.ReadTextAsync(file);
+
+                TokenResponse token = JsonConvert.DeserializeObject<TokenResponse>(tokenContent);
+
+                // Lay thong tin ca nhan bang token.
+                HttpClient client2 = new HttpClient();
+                client2.DefaultRequestHeaders.Add("Authorization", "Basic " + token.Token);
+                var resp = client2.GetAsync("http://2-dot-backup-server-002.appspot.com/_api/v2/members/information")
+                    .Result;
+                Debug.WriteLine(await resp.Content.ReadAsStringAsync());
+                var userInfoContent = await resp.Content.ReadAsStringAsync();
+
+                Member userInfoJson = JsonConvert.DeserializeObject<Member>(userInfoContent);
+
+                currentLogin.firstName = userInfoJson.firstName;
+                currentLogin.lastName = userInfoJson.lastName;
+                currentLogin.avatar = userInfoJson.avatar;
+                currentLogin.phone = userInfoJson.phone;
+                currentLogin.address = userInfoJson.address;
+                currentLogin.introduction = userInfoJson.introduction;
+                currentLogin.gender = userInfoJson.gender;
+                currentLogin.birthday = userInfoJson.birthday;
+                currentLogin.email = userInfoJson.email;
+                currentLogin.password = userInfoJson.password;
+                currentLogin.status = userInfoJson.status;
+                var rootFrame = Window.Current.Content as Frame;
+                rootFrame.Navigate(typeof(MainPage));
+
+                Debug.WriteLine("Da dang nhap thanh cong");
+            }
+            else
+            {
+                Debug.WriteLine("File doesn't exist");
+            }
+        }
+
         private void Sign_up(object sender, RoutedEventArgs e)
         {
             var rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(Views.Sign_Up));
         }
 
-        private void Home(object sender, RoutedEventArgs e)
+        private async void Sigin_Loaded(object sender, RoutedEventArgs e)
         {
-            var rootFrame = Window.Current.Content as Frame;
-            rootFrame.Navigate(typeof(MainPage));
+            DoLogin();
         }
     }
 }

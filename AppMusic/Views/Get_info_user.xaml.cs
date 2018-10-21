@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using AppMusic.Entity;
 using AppMusic.Services;
@@ -31,13 +32,12 @@ namespace AppMusic.Views
     /// </summary>
     public sealed partial class Get_info_user : Page
     {
-        
+        private Member _currentMember;
         public Get_info_user()
         {
+            this._currentMember = new Member();
             this.InitializeComponent();
-            this.test();
-            Debug.WriteLine(ReadToken());
-            //this.ReadToken();
+            this.GetInfoUser();
 
         }
 
@@ -53,19 +53,23 @@ namespace AppMusic.Views
 
         }
 
-        public async void test()
+        public async void GetInfoUser()
         {
-            HttpWebRequest request =(HttpWebRequest)WebRequest.Create("https://2-dot-backup-server-002.appspot.com/_api/v2/songs/");
-            //String encoded = ReadToken().ToString();
-            request.Headers.Add("Authorization", "Basic " + ReadToken().Result );
-            request.Method = "GET";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("Authorization", "Basic " + ReadToken().Result);
+            var response =  client.GetAsync(APIHandle.MEMBER_INFORMATION);
+            var result = await response.Result.Content.ReadAsStringAsync();
+             Member responseJsonMember = JsonConvert.DeserializeObject<Member>(result);
+            this.txt_firstName.Text = responseJsonMember.firstName;
+            this.txt_lastName.Text = responseJsonMember.lastName;
+            this.txt_avatar.ProfilePicture = new BitmapImage(new Uri(responseJsonMember.avatar));
+            this.txt_address.Text = responseJsonMember.address;
+            this.txt_birthday.Text = responseJsonMember.birthday;
+            this.txt_gender.CharacterSpacing = responseJsonMember.gender;
+            this.txt_phone.Text = responseJsonMember.phone;
+            Debug.WriteLine("Response"+ result);
             
-            HttpWebResponse response = (HttpWebResponse)await request.GetResponseAsync();
-            StreamReader resStreamReader = new StreamReader(response.GetResponseStream());
-            string result = resStreamReader.ReadToEnd();
-
-            
-            Debug.WriteLine(result);
         }
     }
 }
+                                         

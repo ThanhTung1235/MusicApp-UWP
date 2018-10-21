@@ -8,9 +8,47 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Grid.Background>
-            <ImageBrush Stretch="UniformToFill" ImageSource="https://www.w3schools.com/w3css/img_lights.jpg" />
-        </Grid.Background>
+    <Page.Resources>
+        <Style x:Key="ButtonRoundedCorner" TargetType="Button">
+            <Setter Property="Background" Value="Silver"/>
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Image HorizontalAlignment="Center" Source="../Assets/groot.gif" Stretch="UniformToFill"></Image>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="500"></RowDefinition>
+                <RowDefinition Height="300"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel HorizontalAlignment="Center" Grid.Row="2">
+                <TextBlock FontFamily="Segoe UI Light" FontSize="19" TextAlignment="Center" Foreground="White">
+                <Bold>
+                    Thưởng thức âm nhạc <LineBreak/> theo cách của bạn.
+                </Bold> 
+            </TextBlock>
+                <StackPanel HorizontalAlignment="Center">
+                    <Image Source="../Assets/Logo.png" Width="100" Stretch="UniformToFill"></Image>
+                    <Button Width="200" Height="35" Background="#1DB954" Content="Online" Style="{StaticResource ButtonRoundedCorner}"/>
+                    <Button Margin="0,15,0,0" Width="200" Height="35" Content="Nhạc của tui" Foreground="Black" Style="{StaticResource ButtonRoundedCorner}" Background="WhiteSmoke"></Button>
+                </StackPanel>
+            
+            </StackPanel>
+        </Grid>
+       
     </Grid>
+
+
 </Page>

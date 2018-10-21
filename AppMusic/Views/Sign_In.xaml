@@ -6,25 +6,56 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Sigin_Loaded">
+    <Page.Resources>
+        <Storyboard x:Key="GradientAnimation" RepeatBehavior="Forever" SpeedRatio="0.2">
+            <ColorAnimationUsingKeyFrames
+                Storyboard.TargetName="MyGrid"
+                Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[0].(GradientStop.Color)"
+                EnableDependentAnimation="True"
+                BeginTime="-0:0:0.5">
+                <LinearColorKeyFrame KeyTime="0:0:0" Value="#AC2A67"/>
+                <LinearColorKeyFrame KeyTime="0:0:2" Value="#863D8C"/>
+                <LinearColorKeyFrame KeyTime="0:0:3" Value="#837EE8"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames
+                Storyboard.TargetName="MyGrid"
+                Storyboard.TargetProperty="(UIElement.Background).(LinearGradientBrush.GradientStops)[1].(GradientStop.Color)"
+                EnableDependentAnimation="True">
+                <LinearColorKeyFrame KeyTime="0:0:0" Value="#0000FF"/>
+                <LinearColorKeyFrame KeyTime="0:0:8" Value="#FF00FF"/>
+                <LinearColorKeyFrame KeyTime="0:0:9" Value="#FF0000"/>
+            </ColorAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    <Grid x:Name="MyGrid">
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0"/>
+                <GradientStop Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
-    <Grid>
-        
-        <StackPanel HorizontalAlignment = "Center" >
-            <TextBlock Text="Login" FontSize="25" HorizontalAlignment="Center" Margin="0,25,0,10" FontWeight="Bold"></TextBlock>
-            <StackPanel Orientation="Vertical">
-                <TextBox Header="Email" x:Name="Email" HorizontalAlignment="Center" Width="250" />
-                <TextBlock Foreground="Red" x:Name="email" />
-                <PasswordBox Header = "Password" x:Name="Password" HorizontalAlignment="Center" Width="250"/>
-                <TextBlock Foreground="Red" x:Name="password"/>
+        <StackPanel VerticalAlignment="Center" Margin="10,0">
+            <TextBlock Text="Đăng nhập" Foreground="White" FontSize="30" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+            <Border Width="250" Margin="0,40,0,0" CornerRadius="15" BorderThickness="{StaticResource TextControlBorderThemeThickness}" Background="{StaticResource TextBoxBackgroundThemeBrush}" BorderBrush="{StaticResource TextBoxBorderThemeBrush}" >
+                <TextBox PlaceholderText="Email" x:Name="Email"   BorderBrush="Transparent" Background="Transparent"/>
+            </Border>
+            <TextBlock Foreground="Red" x:Name="email" />
+            <Border Width="250" Margin="0,10,0,0" CornerRadius="15" BorderThickness="{StaticResource TextControlBorderThemeThickness}" Background="{StaticResource TextBoxBackgroundThemeBrush}" BorderBrush="{StaticResource TextBoxBorderThemeBrush}" >
+                <PasswordBox PlaceholderText="Password" x:Name="Password" Width="250" BorderBrush="Transparent" Background="Transparent"/>
+            </Border>
+            <TextBlock Foreground="Red" x:Name="password"/>
+            <Button Margin="0,20,0,0" Background="White" Foreground="Black
+                    " Content="Đăng nhập" HorizontalAlignment="Center"  Click="Button_submit"/>
+            <StackPanel HorizontalAlignment="Center" Margin="0,30,0,0">
+                <TextBlock Foreground="White" Text="Bạn chưa có tài khoản? "></TextBlock>
+                <HyperlinkButton HorizontalAlignment="Center" Foreground="WhiteSmoke" Content="Đăng ký ngay" Click="Sign_up"></HyperlinkButton>
             </StackPanel>
-            <StackPanel Orientation = "Horizontal" >
-                <Button Content="Sign In" Width="100" HorizontalAlignment="Left" VerticalAlignment="Top" Click="Button_submit"/>
-                <Button Content = "Sign Up" Width="100" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Top" Click="Sign_up" />
-            </StackPanel>
-            <Button Width="100" HorizontalAlignment="Left" Margin="60,20,0,0" Click="Home" >
-                <SymbolIcon Symbol="Home"></SymbolIcon>
-            </Button>
+
+
         </StackPanel>
+
     </Grid>
 </Page>
