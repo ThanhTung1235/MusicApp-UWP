@@ -111,7 +111,7 @@
 
             </CommandBar.Content>
         </CommandBar>
-        <MediaElement x:Name="mediaElement"></MediaElement>
+        <MediaElement x:Name="mediaElement" MediaEnded="Check_song_ended"></MediaElement>
         <!--<MediaElement x:Name="mediaElement" AreTransportControlsEnabled="True">
             <MediaElement.TransportControls>
                 <MediaTransportControls IsPreviousTrackButtonVisible="True" IsNextTrackButtonVisible="True"></MediaTransportControls>

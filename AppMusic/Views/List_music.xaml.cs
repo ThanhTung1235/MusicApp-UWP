@@ -258,7 +258,7 @@ namespace AppMusic.Views
         }
 
 
-
+        
 
 
 
@@ -362,6 +362,62 @@ namespace AppMusic.Views
                     Do_play();
                     break;
             }
+        }
+        private void AutoNextSongOnLine(ObservableCollection<Song> songs, ListView list)
+        {
+            if (_currentIndex < ListSong.Count - 1 && _currentIndex >= 0)
+            {
+                _currentIndex++;
+            }
+            else
+            {
+                _currentIndex = 0;
+            }
+            LoadSongOnline(ListSong,_currentIndex,MyListSong);
+        }
+        private void AutoNextSongLocal(ObservableCollection<SongLocal> songLocals , ListView list)
+        {
+            if (_currentIndex < ListSong.Count - 1 && _currentIndex >= 0)
+            {
+                _currentIndex++;
+            }
+            else
+            {
+                _currentIndex = 0;
+            }
+            LoadSongLocal(ListSongLocal,_currentIndex,ListSongInLibary);
+        }
+        private void Check_song_ended(object sender, RoutedEventArgs e)
+        {
+            switch (Ontapped)
+            {
+                case 2:
+                    if (ListSongInLibary.SelectedIndex == (ListSongLocal.Count - 1))
+                    {
+                        AutoNextSongLocal(ListSongLocal, ListSongInLibary);
+                        mediaElement.AutoPlay = false;
+                        PlayButton.Icon = new SymbolIcon(Symbol.Play);
+                        _isPlaying = false;
+                    }
+                    else
+                    {
+                        AutoNextSongLocal(ListSongLocal, ListSongInLibary);
+                    }
+                    break;
+                case 1:
+                    if (MyListSong.SelectedIndex == (ListSongLocal.Count - 1))
+                    {
+                        AutoNextSongOnLine(ListSong ,MyListSong);
+                        PlayButton.Icon = new SymbolIcon(Symbol.Play);
+                        _isPlaying = false;
+                    }
+                    else
+                    {
+                        AutoNextSongOnLine(ListSong,MyListSong);
+                    }
+                    break;
+            }
+            
         }
     }
 }
