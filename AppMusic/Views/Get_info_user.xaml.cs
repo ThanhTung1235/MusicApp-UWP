@@ -73,6 +73,8 @@ namespace AppMusic.Views
                     this.txt_gender.Text = "Giới tính khác";
                     break;
             }
+
         }
     }
 }
+                                         

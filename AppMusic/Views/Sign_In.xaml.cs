@@ -94,8 +94,7 @@ namespace AppMusic.Views
                 // Lay thong tin ca nhan bang token.
                 HttpClient client2 = new HttpClient();
                 client2.DefaultRequestHeaders.Add("Authorization", "Basic " + token.Token);
-                var resp = client2.GetAsync(APIHandle.MEMBER_INFORMATION)
-                    .Result;
+                var resp = client2.GetAsync(APIHandle.MEMBER_INFORMATION).Result;
                 Debug.WriteLine(await resp.Content.ReadAsStringAsync());
                 var userInfoContent = await resp.Content.ReadAsStringAsync();
 
@@ -115,7 +114,8 @@ namespace AppMusic.Views
                 var rootFrame = Window.Current.Content as Frame;
                 rootFrame.Navigate(typeof(MainPage));
 
-                Debug.WriteLine("Da dang nhap thanh cong" +token.Token);
+
+                Debug.WriteLine("Da dang nhap thanh cong");
             }
             else
             {

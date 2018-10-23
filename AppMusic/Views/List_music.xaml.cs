@@ -100,10 +100,10 @@ namespace AppMusic.Views
             ObservableCollection<Song> listSongs = JsonConvert.DeserializeObject<ObservableCollection<Song>>(result);
             foreach (var songs in listSongs)
             {
+
                 ListSong.Add(songs);
             }
             //Debug.WriteLine(result);
-
         }
 
         private async void btn_add(object sender, RoutedEventArgs e)
@@ -189,6 +189,7 @@ namespace AppMusic.Views
 
         }
        
+
         private async void GetSongLocal(IReadOnlyList<StorageFile> files)
         {
             if (files.Count > 0)
@@ -227,6 +228,7 @@ namespace AppMusic.Views
             QueryOptions queryOption = new QueryOptions
                 (CommonFileQuery.OrderByTitle, new string[] { ".mp3" });
 
+
             queryOption.FolderDepth = FolderDepth.Deep;
 
             Queue<IStorageFolder> folders = new Queue<IStorageFolder>();
@@ -250,6 +252,7 @@ namespace AppMusic.Views
             this.singer_song.Text = this.ListSongLocal[_currentIndex].Singer;
             LoadSongFromLocal(songLocal_selected);
             Do_play();
+
 
 
         }
@@ -335,10 +338,6 @@ namespace AppMusic.Views
                     Do_play();
                     break;
             }
-
-
-
-
         }
 
         private void btn_Next(object sender, RoutedEventArgs e)
@@ -364,8 +363,6 @@ namespace AppMusic.Views
                     break;
             }
         }
-
-
     }
 }
 

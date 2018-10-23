@@ -43,8 +43,6 @@ namespace AppMusic
             currentLogin = new Member();
             this.InitializeComponent();
             this.My_Frame.Navigate(typeof(Views.Home));
-            
-            
         }
         private void btn_bar_Click(object sender, RoutedEventArgs e)
         {
@@ -78,14 +76,14 @@ namespace AppMusic
                     CurrentTag = "My_account";
                     this.My_Frame.Navigate(typeof(Views.Get_info_user));
                     break;
-                case "Register":
-                    CurrentTag = "Register";
-                    this.My_Frame.Navigate(typeof(Views.Sign_Up));
-                    break;
-                case "Login":
-                    CurrentTag = "Login";
-                    this.My_Frame.Navigate(typeof(Views.Sign_In));
-                    break;
+                //case "Register":
+                //    CurrentTag = "Register";
+                //    this.My_Frame.Navigate(typeof(Views.Sign_Up));
+                //    break;
+                //case "Login":
+                //    CurrentTag = "Login";
+                //    this.My_Frame.Navigate(typeof(Views.Sign_In));
+                //    break;
                 case "HotSong":
                     CurrentTag = "HotSong";
                     this.My_Frame.Navigate(typeof(Views.List_music));

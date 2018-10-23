@@ -82,18 +82,18 @@
                                     <StackPanel Margin="20,10,0,0" Orientation="Vertical">
                                         <TextBlock FontWeight="Bold" FontSize="16" Text="{x:Bind Name}"></TextBlock>
                                         <TextBlock Text="{x:Bind Singer}" Style="{ThemeResource CaptionTextBlockStyle}"></TextBlock>
-                                        
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>
-
                     </ListView>
                 </Grid>
             </PivotItem>
         </Pivot>
+
         <CommandBar  x:Name="CommandBar_control" HorizontalAlignment="Stretch" Visibility="Collapsed"   VerticalAlignment="Bottom" >
             
+
             <AppBarButton Icon="Previous" Label="Previous" Click="btn_Previous" />
             <AppBarButton  Icon="Play" Label="Stop" Click="Player_Click" ToolTipService.ToolTip="Play/Pause Song" x:Name="PlayButton"/>
             <AppBarButton Icon="Next" Label="Next" Click="btn_Next"/>
@@ -108,6 +108,7 @@
                         
                     </StackPanel>
                 </StackPanel>
+
             </CommandBar.Content>
         </CommandBar>
         <MediaElement x:Name="mediaElement"></MediaElement>
@@ -116,6 +117,5 @@
                 <MediaTransportControls IsPreviousTrackButtonVisible="True" IsNextTrackButtonVisible="True"></MediaTransportControls>
             </MediaElement.TransportControls>
         </MediaElement>-->
-        
     </Grid>
 </Page>
