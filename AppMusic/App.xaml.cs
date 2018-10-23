@@ -67,7 +67,7 @@ namespace AppMusic
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    rootFrame.Navigate(typeof(Views.Sign_In), e.Arguments);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
@@ -97,5 +97,6 @@ namespace AppMusic
             //TODO: Save application state and stop any background activity
             deferral.Complete();
         }
+
     }
 }

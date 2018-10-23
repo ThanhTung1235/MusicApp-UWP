@@ -52,13 +52,6 @@
                 <Button Content="Sign up" Margin="0, 0, 20 , 0" Click="Do_Submit"/>
                 <Button Content="Sign in" Click="Sign_in" />
             </StackPanel>
-            <Button Width="100" HorizontalAlignment="Center"  Margin="0,20,0,0" Click="Home" >
-                <SymbolIcon Symbol="Home"></SymbolIcon>
-                
-            </Button>
-                <Button Content="Save_file" Click="test"></Button>
-                <Button Content="Read_file" x:Name="load_file" Click="read"></Button>
-                <TextBlock x:Name="file_content" Text="Hello"></TextBlock>
         </StackPanel>
     </ScrollViewer>
 </Page>
